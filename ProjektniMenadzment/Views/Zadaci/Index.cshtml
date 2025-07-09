@@ -1,0 +1,61 @@
+﻿@model List<ProjektniMenadzment.Models.ViewModels.ZadaciViewModel>
+@{
+}
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h1>Zadaci</h1>
+        </div>
+    </div>
+</div>
+
+
+<div class="container">
+    <div class="row"> 
+        <div class="col-md-12">
+            <a class="btn btn-dark mb-3"
+               href="@Url.Action("Create", "Zadaci", new { projekatId = ViewBag.ProjekatId })">
+                Kreiraj
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Naslov</th>
+                <th>Opis</th>
+                <th>Prioritet</th>
+                <th>Datum kreiranja</th>
+                <th>Rok</th>
+                <th>Status</th>
+                <th>Dodeljen korisniku</th>
+                <th>Akcije</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var z in Model){
+                <tr>
+                    <td>@z.Naslov</td>
+                    <td>@z.Opis</td>
+                    <td>@z.Prioritet</td>
+                    <td>@z.DatumKreiranja.ToString("dd.MM.yyyy")</td>
+                    <td>@z.Rok.Value.ToString("dd.MM.yyyy")</td>
+                    <td>@z.Status</td>
+                    <td>@z.DodeljenKorisnikuIme</td>
+                    <td>
+                        <a href="@Url.Action("Details", "Zadaci", new { id = z.Id })" class="btn btn-dark">Detalji</a>
+                        <a href="@Url.Action("Edit", "Zadaci", new { id = z.Id })" class="btn btn-primary">Uredi</a>
+                        <form asp-action="DeleteConfirmed" asp-controller="Zadaci" method="post" style="display:inline;" onsubmit="return confirm('Da li ste sigurni da zelite da obrisete ovaj zadatak?');">
+                            <input type="hidden" name="id" value="@z.Id" />
+                            <button type="submit" class="btn btn-danger mt-2">Obrisi</button>
+                        </form>
+
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,16 @@
+﻿@model ProjektniMenadzment.Models.ViewModels.ZadaciViewModel
+@{
+}
+<h2>Detalji zadatka</h2>
+
+<table class="table table-bordered">
+    <tr><th>Naslov</th><td>@Model.Naslov</td></tr>
+    <tr><th>Opis</th><td>@Model.Opis</td></tr>
+    <tr><th>Status</th><td>@Model.Status</td></tr>
+    <tr><th>Prioritet</th><td>@Model.Prioritet</td></tr>
+    <tr><th>Rok</th><td>@Model.Rok?.ToString("dd.MM.yyyy")</td></tr>
+    <tr><th>Dodeljen korisniku</th><td>@Model.DodeljenKorisnikuIme</td></tr>
+    <tr><th>Kreiran</th><td>@Model.DatumKreiranja.ToString("dd.MM.yyyy HH:mm")</td></tr>
+</table>
+
+<a href="@Url.Action("Index", "Zadaci", new { projekatId = ViewBag.ProjekatId })" class="btn btn-secondary">Nazad</a>

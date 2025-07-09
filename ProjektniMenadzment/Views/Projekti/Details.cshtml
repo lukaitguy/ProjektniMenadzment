@@ -1,0 +1,90 @@
+﻿@model ProjektniMenadzment.Models.ViewModels.PregledProjektaViewModel
+
+@{
+    ViewData["Title"] = "Pregled projekta";
+}
+
+<div class="container mt-4">
+    <h2 class="mb-4 text-center">📁 Projekat: @Model.Naziv</h2>
+
+    <div class="row">
+        <!-- Leva kolona - osnovne informacije -->
+        <div class="col-md-6">
+            <div class="card shadow-sm mb-4">
+                <div class="card-header bg-dark text-white">📝 Osnovne informacije</div>
+                <div class="card-body">
+                    <p><strong>Status:</strong> @Model.Status</p>
+                    <p><strong>Datum početka:</strong> @Model.DatumPocetka.ToString("dd.MM.yyyy")</p>
+                    <p><strong>Rok:</strong> @Model.Rok?.ToString("dd.MM.yyyy")</p>
+                    <p><strong>Kreirao:</strong> @Model.KreiraoKorisnikIme</p>
+					<p><strong>Zanr:</strong> @Model.Zanr</p>
+					<p><strong>Opis:</strong> @Model.Opis</p>
+                </div>
+            </div>
+
+            <div class="card shadow-sm">
+                <div class="card-header bg-secondary text-white">👥 Članovi tima</div>
+                <div class="card-body">
+                    @if (Model.Clanovi.Any())
+                    {
+                        <ul class="list-group">
+                            @foreach (var clan in Model.Clanovi)
+                            {
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    @clan.Ime @clan.Prezime
+                                    <span class="badge bg-info text-dark">@clan.Uloga</span>
+                                </li>
+                            }
+                        </ul>
+                    }
+                    else
+                    {
+                        <p>Nema članova u timu.</p>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <!-- Desna kolona - zadaci -->
+        <div class="col-md-6">
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">✅ Zadaci <a class="btn btn-dark btn-sm" href="@Url.Action("Index", "Zadaci", new{ projekatId = Model.Id })">Svi zadaci</a></div>
+                <div class="card-body">
+                    @if (Model.Zadaci.Any())
+                    {
+                        <table class="table table-bordered table-sm">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Naslov</th>
+                                    <th>Status</th>
+                                    <th>Rok</th>
+                                    <th>Dodeljen</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var zad in Model.Zadaci)
+                                {
+                                    <tr>
+                                        <td>@zad.Naslov</td>
+                                        <td>@zad.Status</td>
+                                        <td>@zad.Rok?.ToString("dd.MM.yyyy")</td>
+                                        <td>@zad.DodeljenKorisnikuIme</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    }
+                    else
+                    {
+                        <p>Nema zadataka za ovaj projekat.</p>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-4 text-center">
+        <a asp-controller="Projekti" asp-action="Index" class="btn btn-outline-secondary">⬅️ Nazad na sve projekte</a>
+        <a asp-controller="Zadaci" asp-action="Create" asp-route-projekatId="@Model.Id" class="btn btn-dark ms-2">➕ Dodaj zadatak</a>
+    </div>
+</div>

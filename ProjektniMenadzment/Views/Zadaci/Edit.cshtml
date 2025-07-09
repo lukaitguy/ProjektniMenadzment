@@ -1,0 +1,36 @@
+﻿@model ProjektniMenadzment.Models.ViewModels.CreateZadatakRequest
+@{
+}
+
+<h2>Izmeni zadatak</h2>
+
+<form asp-action="Edit" asp-route-id="@ViewBag.ZadatakId" method="post">
+    <input type="hidden" asp-for="ProjekatId" />
+
+    <div class="form-group">
+        <label asp-for="Naslov"></label>
+        <input asp-for="Naslov" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Opis"></label>
+        <textarea asp-for="Opis" class="form-control"></textarea>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Prioritet"></label>
+        <select asp-for="Prioritet" class="form-control">
+            <option value="Nizak">Nizak</option>
+            <option value="Srednji">Srednji</option>
+            <option value="Visok">Visok</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Rok">Rok</label>
+        <input asp-for="Rok" type="date" class="form-control" />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Sačuvaj</button>
+    <a href="@Url.Action("Index", "Zadaci", new { projekatId = Model.ProjekatId })" class="btn btn-secondary">Otkaži</a>
+</form>

@@ -1,0 +1,48 @@
+﻿@model List<ProjektniMenadzment.Models.ViewModels.ProjekatViewModel>
+@{
+}
+
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h2>Projekti</h2>
+            <a href="@Url.Action("Create", "Projekti")" class="btn btn-dark">Kreiraj novi projekat</a>
+        </div>
+    </div>
+</div>
+
+<table class="table table-striped mt-3">
+    <thead>
+        <tr>
+            <th>Naziv</th>
+            <th>Status</th>
+            <th>Datum početka</th>
+            <th>Rok</th>
+            <th>Kreirao</th>
+            <th>Akcije</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var p in Model)
+        {
+            <tr>
+                <td>@p.Naziv</td>
+                <td>@p.Status</td>
+                <td>@p.DatumPocetka.ToString("dd.MM.yyyy")</td>
+                <td>@p.Rok?.ToString("dd.MM.yyyy")</td>
+                <td>@p.KreiraoKorisnikIme</td>
+                <td>
+                    <a href="@Url.Action("Details", "Projekti", new { id = p.Id })" class="btn btn-dark btn-sm">Pregled</a>
+                    <a href="@Url.Action("Edit", "Projekti", new { id = p.Id })" class="btn btn-primary btn-sm">Uredi</a>
+                    <form asp-action="Delete" asp-route-id="@p.Id" method="post" onsubmit="return confirm('Da li ste sigurni da želite da obrišete projekat?');" style="display:inline;">
+                        <button type="submit" class="btn btn-danger btn-sm">Obrisi</button>
+                    </form>
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
