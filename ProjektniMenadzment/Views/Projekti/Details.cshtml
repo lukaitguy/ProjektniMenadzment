@@ -23,7 +23,12 @@
             </div>
 
             <div class="card shadow-sm">
-                <div class="card-header bg-secondary text-white">👥 Članovi tima</div>
+                <div class="card-header bg-secondary text-white d-flex justify-content-between align-items-center">
+                    <span>👥 Clanovi tima</span>
+                    <a asp-action="AddMember" asp-route-id="@Model.Id" class="btn btn-sm btn-light text-dark">
+                        ➕ Dodaj člana
+                    </a>
+                </div>
                 <div class="card-body">
                     @if (Model.Clanovi.Any())
                     {
@@ -39,16 +44,20 @@
                     }
                     else
                     {
-                        <p>Nema članova u timu.</p>
+                        <p>Nema clanova u timu.</p>
                     }
                 </div>
             </div>
+
         </div>
 
         <!-- Desna kolona - zadaci -->
         <div class="col-md-6">
             <div class="card shadow-sm">
-                <div class="card-header bg-primary text-white">✅ Zadaci <a class="btn btn-dark btn-sm" href="@Url.Action("Index", "Zadaci", new{ projekatId = Model.Id })">Svi zadaci</a></div>
+                <div class="card-header bg-primary d-flex justify-content-between text-white">
+                    <span>✅ Zadaci</span> 
+                    <a class="btn btn-sm btn-light text-dark" href="@Url.Action("Index", "Zadaci", new{ projekatId = Model.Id })">📄 Svi zadaci</a>
+                </div>
                 <div class="card-body">
                     @if (Model.Zadaci.Any())
                     {

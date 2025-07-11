@@ -5,17 +5,17 @@ using ProjektniMenadzment.Repositories.Interfaces;
 
 namespace ProjektniMenadzment.Repositories
 {
-    public class ZanroviRepository : IZanroviRepository
+    public class KorisniciRepository : IKorisniciRepository
     {
         private readonly PMDbContext _context;
-
-        public ZanroviRepository(PMDbContext context)
+        public KorisniciRepository(PMDbContext context)
         {
             _context = context;
         }
-        public async Task<IEnumerable<Zanrovi>> GetAllAsync()
+
+        public async Task<List<Korisnici>> GetAllAsync()
         {
-            return await _context.Zanrovis.ToListAsync();
+            return await _context.Korisnicis.ToListAsync();
         }
     }
 }

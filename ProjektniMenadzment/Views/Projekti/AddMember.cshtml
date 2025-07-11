@@ -1,0 +1,31 @@
+﻿@model ProjektniMenadzment.Models.ViewModels.AddMemberViewModel
+
+@{
+    ViewData["Title"] = "Dodaj člana timu";
+}
+
+<h2>Dodaj clana projektu</h2>
+
+<form asp-action="AddMember" method="post">
+    <input type="hidden" asp-for="ProjekatId" />
+
+    <div class="form-group">
+        <label asp-for="KorisnikId"></label>
+        <select asp-for="KorisnikId" class="form-control" asp-items="Model.Korisnici">
+            <option value="">-- Izaberi korisnika --</option>
+        </select>
+        <span asp-validation-for="KorisnikId" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Uloga"></label>
+        <input asp-for="Uloga" class="form-control" />
+        <span asp-validation-for="Uloga" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Dodaj</button>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

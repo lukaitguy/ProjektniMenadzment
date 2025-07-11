@@ -1,4 +1,4 @@
-﻿using ProjektniMenadzment.Models;
+﻿using ProjektniMenadzment.Models.Domain;
 using ProjektniMenadzment.Models.ViewModels;
 
 namespace ProjektniMenadzment.Repositories.Interfaces

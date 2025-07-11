@@ -1,4 +1,4 @@
-namespace ProjektniMenadzment.Models
+namespace ProjektniMenadzment.Models.Domain
 {
     public class ErrorViewModel
     {

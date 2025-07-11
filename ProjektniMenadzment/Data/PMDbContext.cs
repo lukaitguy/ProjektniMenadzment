@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
-using ProjektniMenadzment.Models;
+using ProjektniMenadzment.Models.Domain;
 
 namespace ProjektniMenadzment.Data;
 
@@ -37,16 +37,18 @@ public partial class PMDbContext : DbContext
     {
         modelBuilder.Entity<ClanoviProjektum>(entity =>
         {
-            entity.HasNoKey();
+            entity.HasKey(e => new { e.ProjekatId, e.KorisnikId });
 
             entity.Property(e => e.Uloga).HasMaxLength(50);
 
-            entity.HasOne(d => d.Korisnik).WithMany()
+            entity.HasOne(d => d.Korisnik)
+                .WithMany(p => p.ClanoviProjekta)
                 .HasForeignKey(d => d.KorisnikId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_ClanoviProjekta_Korisnici");
 
-            entity.HasOne(d => d.Projekat).WithMany()
+            entity.HasOne(d => d.Projekat)
+                .WithMany(p => p.ClanoviProjekta)
                 .HasForeignKey(d => d.ProjekatId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_ClanoviProjekta_Projekti");

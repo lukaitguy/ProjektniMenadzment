@@ -2,8 +2,8 @@
 
 namespace ProjektniMenadzment.Repositories.Interfaces
 {
-    public interface IZanroviRepository
+    public interface IKorisniciRepository
     {
-        Task<IEnumerable<Zanrovi>> GetAllAsync(); 
+        Task<List<Korisnici>> GetAllAsync();
     }
 }

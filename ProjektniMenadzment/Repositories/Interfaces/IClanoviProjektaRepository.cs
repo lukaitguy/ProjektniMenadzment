@@ -2,8 +2,9 @@
 
 namespace ProjektniMenadzment.Repositories.Interfaces
 {
-    public interface IZanroviRepository
+    public interface IClanoviProjektaRepository
     {
-        Task<IEnumerable<Zanrovi>> GetAllAsync(); 
+        Task<ClanoviProjektum> AddAsync(ClanoviProjektum clan);
+
     }
 }

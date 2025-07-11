@@ -12,6 +12,8 @@ builder.Services.AddDbContext<PMDbContext>(options =>
 builder.Services.AddScoped<IProjektiRepository, ProjektiRepository>();
 builder.Services.AddScoped<IZadaciRepository, ZadaciRepository>();
 builder.Services.AddScoped<IZanroviRepository, ZanroviRepository>();
+builder.Services.AddScoped<IKorisniciRepository, KorisniciRepository>();
+builder.Services.AddScoped<IClanoviProjektaRepository, ClanoviProjektaRepository>();
 
 var app = builder.Build();
 

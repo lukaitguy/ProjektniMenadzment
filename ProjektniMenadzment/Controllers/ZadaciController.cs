@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using ProjektniMenadzment.Models;
+using ProjektniMenadzment.Models.Domain;
 using ProjektniMenadzment.Models.ViewModels;
 using ProjektniMenadzment.Repositories.Interfaces;
 

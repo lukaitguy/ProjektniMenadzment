@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace ProjektniMenadzment.Models;
+namespace ProjektniMenadzment.Models.Domain;
 
 public partial class Zanrovi
 {

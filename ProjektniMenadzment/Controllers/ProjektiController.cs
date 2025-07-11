@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using ProjektniMenadzment.Models;
+using ProjektniMenadzment.Models.Domain;
 using ProjektniMenadzment.Models.ViewModels;
 using ProjektniMenadzment.Repositories.Interfaces;
 
@@ -10,11 +10,15 @@ namespace ProjektniMenadzment.Controllers
     {
         private readonly IProjektiRepository _projektiRepository;
         private readonly IZanroviRepository _zanroviRepository;
+        private readonly IKorisniciRepository _korisniciRepository;
+        private readonly IClanoviProjektaRepository _clanoviProjektaRepository;
 
-        public ProjektiController(IProjektiRepository projektiRepository, IZanroviRepository zanroviRepository)
+        public ProjektiController(IProjektiRepository projektiRepository, IZanroviRepository zanroviRepository, IKorisniciRepository korisniciRepository, IClanoviProjektaRepository clanoviProjektaRepository)
         {
             _projektiRepository = projektiRepository;
             _zanroviRepository = zanroviRepository;
+            _korisniciRepository = korisniciRepository;
+            _clanoviProjektaRepository = clanoviProjektaRepository;
         }
 
         [HttpGet]
@@ -169,6 +173,57 @@ namespace ProjektniMenadzment.Controllers
 
             return RedirectToAction("Index");
         }
+
+        [HttpGet]
+        public async Task<IActionResult> AddMember(Guid id)
+        {
+            var projekat = await _projektiRepository.GetByIdAsync(id);
+
+            if (projekat == null)
+                return NotFound();
+
+            var korisnici = await _korisniciRepository.GetAllAsync();
+
+            var model = new AddMemberViewModel
+            {
+                ProjekatId = id,
+                Korisnici = korisnici.Select(k => new SelectListItem
+                {
+                    Value = k.Id.ToString(),
+                    Text = $"{k.Ime} {k.Prezime}"
+                }).ToList()
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AddMember(AddMemberViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                var korisnici = await _korisniciRepository.GetAllAsync();
+                model.Korisnici = korisnici.Select(k => new SelectListItem
+                {
+                    Value = k.Id.ToString(),
+                    Text = $"{k.Ime} {k.Prezime}"
+                }).ToList();
+                return View(model);
+            }
+
+            var clan = new ClanoviProjektum
+            {
+                ProjekatId = model.ProjekatId,
+                KorisnikId = model.KorisnikId,
+                Uloga = model.Uloga
+            };
+
+            await _clanoviProjektaRepository.AddAsync(clan);
+
+            return RedirectToAction("Details", new { id = model.ProjekatId });
+        }
+
 
     }
 }

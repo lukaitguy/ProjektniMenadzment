@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ProjektniMenadzment.Data;
-using ProjektniMenadzment.Models;
+using ProjektniMenadzment.Models.Domain;
 using ProjektniMenadzment.Repositories.Interfaces;
 
 namespace ProjektniMenadzment.Repositories

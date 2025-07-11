@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace ProjektniMenadzment.Models;
+namespace ProjektniMenadzment.Models.Domain;
 
 public partial class Korisnici
 {
@@ -18,6 +18,8 @@ public partial class Korisnici
     public string? Biografija { get; set; }
 
     public DateTime DatumKreiranja { get; set; }
+
+    public ICollection<ClanoviProjektum> ClanoviProjekta { get; set; }
 
     public virtual ICollection<KomentariZadatak> KomentariZadataks { get; set; } = new List<KomentariZadatak>();
 
